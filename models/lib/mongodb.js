@@ -4,10 +4,8 @@
 const process = require( 'process' );
 const { MongoClient, ObjectID } = require( 'mongodb' );
 
-const mongoAuthString = 'mongodb://admin:admin1@ds157204.mlab.com:57204';
-const mongoDBname = 'frozenfire';
-// const mongoAuthString = process.env.MONGO_AUTH;
-// const mongoDBname = process.env.MONGO_DB;
+const mongoAuthString = process.env.MONGO_AUTH;
+const mongoDBname = process.env.MONGO_DB;
 const client = new MongoClient(
 	mongoAuthString, {
 		authSource: mongoDBname,

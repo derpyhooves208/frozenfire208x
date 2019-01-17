@@ -29,13 +29,10 @@ module.exports = async ( app ) => {
 	app.set( 'Tasks', Tasks );
 	app.set( 'Users', Users );
 
-	const cloudinaryName = 'dzenuytfg';
-	const cloudinaryApiKey = '972413468316328';
-	const cloudinaryApiSecret = 'i1CHVJTZLHsoaddNOKp5jNlpRr4';
 	// https://cloudinary.com/documentation/admin_api
-	// const cloudinaryName = process.env.CLOUDINARY_NAME;
-	// const cloudinaryApiKey = process.env.CLOUDINARY_API_KEY;
-	// const cloudinaryApiSecret = process.env.CLOUDINARY_API_SECRET;
+	const cloudinaryName = process.env.CLOUDINARY_NAME;
+	const cloudinaryApiKey = process.env.CLOUDINARY_API_KEY;
+	const cloudinaryApiSecret = process.env.CLOUDINARY_API_SECRET;
 	cloudinary.config( {
 		cloud_name: cloudinaryName,
 		api_key: cloudinaryApiKey,
