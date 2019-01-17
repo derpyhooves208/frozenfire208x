@@ -1,0 +1,66 @@
+{% extends './extends/template.html' %}
+
+{% block title %}Users{% endblock %}
+
+{% block content %}
+<dl class="user">
+	<dt>id</dt>
+	<dd>
+		<span class="user__id">{{ user.id }}</span>
+
+	</dd>
+
+	<dt>role</dt>
+	<dd>
+		<span class="user__role">
+			{% if user.role %}
+			<img src="/images/icon-admin-24.jpg" alt="admin" />
+			{% else %}
+			<img src="/images/icon-admin-2.jpg" alt="user" />
+			{% endif %}
+		</span>
+	</dd>
+
+	<dt>fullname</dt>
+	<dd>
+		<span class="user__fullname">{{ user.fullname }}</span>
+	</dd>
+
+	<dt>login</dt>
+	<dd>
+		<span class="user__login">{{ user.login }}</span>
+	</dd>
+
+	<dt>enable</dt>
+	<dd>
+		<span class="user__enable">
+			{% if user.enable %}
+			+
+			{% else %}
+			-
+			{% endif %}
+		</span>
+
+	</dd>
+
+	<dt>avatar</dt>
+	<dd>
+		<span class="user__avatar">
+			{% if user.avatar %}
+			<img src="{{ user.avatar | safe }}" alt="avatar" />
+			{% else %}
+			<img src="/images/noavatar.png" alt="noavatar" />
+			{% endif %}
+		</span>
+	</dd>
+
+	<dt>registeredAt</dt>
+	<dd>
+		<span class="user__registeredAt">{{ user.registeredAt }}</span>
+	</dd>
+
+	<dt>actions</dt>
+	<dd>?</dd>
+
+</dl>
+{% endblock %}

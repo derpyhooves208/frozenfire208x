@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8" />
+		<title>{% block title %}Title{% endblock %}</title>
+		<meta name="descrption" content="{% block descrption %}{% endblock %}" />
+		<meta name="keywords" content="{% block keywords %}{% endblock %}" />
+		<link rel="stylesheet" href="/stylesheets/style.css" />
+		{% include '../partials/head.html' ignore missing %}
+		{% block meta %}{% endblock %}
+		{% block style %}{% endblock %}
+		{% block css %}{% endblock %}
+		{% block script %}{% endblock %}
+		{% block js %}{% endblock %}
+	</head>
+
+	<body>
+		<div class="box">
+			<div class="box-layout">
+				{% block layout %}
+				<div class="box-header">
+					{% block header %}
+					{% include '../partials/header.html' ignore missing %}
+					{% endblock %}
+				</div>
+				<div class="box-content">
+					{% block content %}
+					It works!
+					{% endblock %}
+				</div>
+				<div class="box-footer">
+					{% block footer %}
+					{% include '../partials/footer.html' ignore missing %}
+					{% endblock %}
+				</div>
+				{% endblock %}
+			</div>
+		</div>
+	</body>
+</html>

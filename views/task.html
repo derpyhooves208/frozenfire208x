@@ -1,0 +1,55 @@
+{% extends './extends/template.html' %}
+
+{% block title %}Tasks{% endblock %}
+
+{% block content %}
+<dl class="task">
+	<dt>id</dt>
+	<dd>
+		<span class="task__id">{{ task.id }}</span>
+	</dd>
+
+	<dt>createdAt</dt>
+	<dd>
+		<span class="task__createdAt">{{ task.createdAt }}</span>
+	</dd>
+
+	<dt>modifiedAt</dt>
+	<dd>
+		<span class="task__modifiedAt">{{ task.modifiedAt }}</span>
+	</dd>
+
+	<dt>src</dt>
+	<dd>
+		<span class="task__src">
+			{% if task.src %}
+			<img class="task__src_preview" src="{{ task.src }}" alt="task" />
+			<span class="task__src_text">{{ task.src }}</span>
+			{% else %}
+			<img src="/images/notask.png" alt="notask" />
+			{% endif %}
+		</span>
+	</dd>
+
+	<dt>title</dt>
+	<dd>
+		<span class="task__title">{{ task.title }}</span>
+	</dd>
+
+	<dt>description</dt>
+	<dd>
+		<span class="task__secription">{{ task.description }}</span>
+	</dd>
+
+	<dt>actions</dt>
+	<dd>
+		<form class="task__action" method="GET" action="/tasks/{{ task.id }}/edit">
+			<input class="task__action_edit" type="submit" value="edit" />
+		</form>
+		<form class="task__action" method="POST" action="/tasks/{{ task.id }}/remove">
+			<input class="task__action_remove" type="submit" value="remove" />
+		</form>
+	</dd>
+
+</dl>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% if pages %}
+{% set pageIndex = Math.max( pages.pageIndex | default(0), 0 ) %}
+{% set itemsCount = Math.max( pages.itemsCount | default(0), 0 ) %}
+{% set itemsPerPage = Math.max( pages.itemsPerPage | default(1), 1 ) %}
+{% set pageOffset = Math.max( pages.pageOffset | default(0), 0 ) %}
+{% set pageOffsets = pages.pageOffsets | default([]) %}
+{% set pagesCount = Math.ceil( itemsCount / itemsPerPage ) %}
+{% set itemsTail = itemsCount % itemsPerPage %}
+{% set pageIndexFirst = 0 %}
+{% set pageIndexLast = Math.max( pagesCount - 1, pageIndexFirst ) %}
+{% set pageIndexPrev = Math.max( pageIndex - 1, pageIndexFirst ) %}
+{% set pageIndexNext = Math.min( pageIndex + 1, pageIndexLast ) %}
+{% macro url(index, search) -%}
+{% if search.value && index > 0 %}
+?q={{ search.value }}&page={{ index }}
+{% elif search.value %}
+?q={{ search.value }}
+{% elif index > 0 %}
+?page={{ index }}
+{% else %}
+?
+{% endif %}
+{%- endmacro %}
+<div class="page">
+	<a class="page__link page__first" href="{{ url(0, search) }}">&lt;&lt;</a>
+
+	<a class="page__link page__prev" href="{{ url(pageIndexPrev, search) }}"> &lt; </a>
+
+	{% for p in pageOffsets %}
+	{% if pageIndex + p < pageIndexFirst %}
+	  {% elif pageIndex + p> pageIndexLast %}
+		{% elif p == 0 %}
+		<a class="page__link page__item page__current" href="{{ url(pageIndex + p, search) }}"> {{ pageIndex + p + 1 }} </a>
+		{% else %}
+		<a class="page__link page__item" href="{{ url(pageIndex + p, search) }}"> {{ pageIndex + p + 1 }} </a>
+		{% endif %}
+		{% endfor %}
+
+		<a class="page__link page__next" href="{{ url(pageIndexNext, search) }}"> &gt; </a>
+
+		<a class="page__link page__last" href="{{ url(pageIndexLast, search) }}"> &gt;&gt; </a>
+		<span>
+			<script type="text/javascript">
+			function pageSelectorChange( p ) {
+				p.parentNode.page.value = Number( p.value ) - 1;
+			}
+
+			</script>
+			<form action="/tasks" method="GET">
+				<input type="hidden" name="q" value="{{ search.value }}" />
+				<input type="hidden" name="page" value="{{ pageIndex }}" />
+				<input type="number" id="page-selector" min="{{ pageIndexFirst + 1 }}" max="{{ pageIndexLast + 1 }}" value="{{ pageIndex + 1 }}" onchange="pageSelectorChange(this)" />
+				<input type="submit" value="go">
+			</form>
+		</span>
+		<span class="page__bar">Page: {{ pageIndex + 1 }} / {{ pagesCount }}</span>
+		<span class="page__items">Items: {{ itemsCount }}</span>
+</div>
+{% endif %}

@@ -1,0 +1,76 @@
+{% extends './extends/template.html' %}
+
+{% block title %}Tasks{% endblock %}
+
+{% block content %}
+{% if search.value && !tasks.length %}
+No tasks found <a href="/tasks/new">+</a>
+{% elif !tasks.length %}
+No tasks <a href="/tasks/new">+</a>
+{% else %}
+<table class="tasks">
+	<caption>
+		Tasks
+		<a href="/tasks/new">+</a>
+	</caption>
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>id</th>
+			<th>src</th>
+			<th>title</th>
+			<th>description</th>
+			<th>createdAt</th>
+			<th>modifiedAt</th>
+			<th>actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for task in tasks %}
+		<tr class="task__row">
+			<td>
+				<span class="task__index">{{ loop.index + skiped }}</span>
+			</td>
+			<td>
+				<a href="/tasks/{{ task.id }}">
+					<span class="task__id">{{ task.id }}</span>
+				</a>
+			</td>
+			<td>
+				<span class="task__src">
+					{% if task.src %}
+					<img src="{{ task.src }}" alt="task-{{ task.id }}" />
+					{% else %}
+					<img src="/images/notask.png" alt="notask" />
+					{% endif %}
+				</span>
+			</td>
+			<td>
+				<span class="task__title">{{ task.title }}</span>
+			</td>
+			<td>
+				<span class="task__secription">{{ task.description }}</span>
+			</td>
+			<td>
+				<span class="task__createdAt">{{ task.createdAt }}</span>
+			</td>
+			<td>
+				<span class="task__modifiedAt">{{ task.modifiedAt }}</span>
+			</td>
+			<td>
+				<form class="task__action" method="GET" action="/tasks/{{ task.id }}/edit">
+					<input class="task__action_edit" type="submit" value="edit" />
+				</form>
+				<form class="task__action" method="POST" action="/tasks/{{ task.id }}/remove">
+					<input class="task__action_remove" type="submit" value="remove" />
+				</form>
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% include './partials/pages.html' ignore missing %}
+
+{% endif %}
+{% endblock %}

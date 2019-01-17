@@ -1,0 +1,57 @@
+<header class="header">
+	<div class="header__item header__item_logo">
+		<a class="header__link" href="/">
+			<picture class="">
+				<source type="image/jpeg" src="/images/logo.jpg" />
+				<source type="image/png" src="/images/logo.png" />
+				<img class="header__logo" src="/images/logo.png" alt="Logo" />
+			</picture>
+		</a>
+	</div>
+	{% if search %}
+	<div class="header__item header__item_search">
+		<form class="header__search" method="{{ search.method | default('GET') }}" action="{{ search.action | default('/search') }}">
+			<input name="{{ search.name | default('query') }}" type="text" placeholder="{{ search.placeholder | default('search') }}" value="{{ search.value | default('') }}" />
+			<input type="submit" value="search" />
+		</form>
+	</div>
+	{% endif %}
+	<nav class="header__item header__item_menu">
+		<ul class="menu">
+			<li class="menu__item">
+				<a class="menu__link" href="/" title="Home">Home</a>
+			</li>
+			<li class="menu__item">
+				<a class="menu__link" href="/users" title="Users">Users</a>
+			</li>
+			<li class="menu__item">
+				<a class="menu__link" href="/tasks" title="Tasks">Tasks</a>
+			</li>
+			<li class="menu__item">
+				<a class="menu__link" href="/about" title="About">About</a>
+			</li>
+		</ul>
+	</nav>
+	<div class="header__item header__item_account">
+		<ul class="menu">
+			{% if account %}
+			<li class="menu__item">
+				Hello, <a class="menu__link header__account" href="/user/me" title="User">{{ account.name | default('?') }}</a>
+			</li>
+			<li class="menu__item">
+				<a class="menu__link" href="/logout" title="Logout">Logout</a>
+			</li>
+			{% else %}
+			<li class="menu__item">
+				Hello, <span class="header__account">guest</span>
+			</li>
+			<li class="menu__item">
+				<a class="menu__link" href="/join" title="Join">Join</a>
+			</li>
+			<li class="menu__item">
+				<a class="menu__link" href="/login" title="Login">Login</a>
+			</li>
+			{% endif %}
+		</ul>
+	</div>
+</header>

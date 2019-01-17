@@ -1,0 +1,17 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+.box-layout {
+  width: 1024px;
+}
+.users .user__role > img {
+  width: 48px;
+}
+.users .user__avatar > img {
+  width: 48px;
+}
+span.task__src > img {
+  max-width: 400px;
+}

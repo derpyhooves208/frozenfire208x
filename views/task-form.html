@@ -1,0 +1,51 @@
+{% extends './extends/template.html' %}
+
+{% block title %}Tasks - {{ form.type }}{% endblock %}
+
+{% block content %}
+<form method="{{ form.method }}" action="{{ form.action }}" enctype="{{ form.enctype }}">
+	<input type="hidden" name="type" value="{{ form.type }}" />
+	<dl class="task">
+		{% if form.type == 'edit' %}
+		<dt>id</dt>
+		<dd>
+			<span class="task__id">{{ task.id }}</span>
+		</dd>
+		<dt>created</dt>
+		<dd>
+			<span class="task__created">{{ task.createdAt }}</span>
+		</dd>
+		<dt>modified</dt>
+		<dd>
+			<span class="task__modified">{{ task.modifiedAt }}</span>
+		</dd>
+		{% endif %}
+		<dt>src</dt>
+		<dd>
+			{% if form.type == 'edit' %}
+			<img class="task__src_preview" src="{{ task.src }}" alt="src" />
+			<span class="task__src_text">{{ task.src }}</span>
+			<div>
+				<label>
+					<input type="checkbox" class="task__src_remove" name="unsrc" value="{{ task.src }}" /> remove src (default by replace)
+				</label>
+			</div>
+			{% endif %}
+			<input class="task__src" type="file" name="src" />
+		</dd>
+
+		<dt>title</dt>
+		<dd>
+			<input class="task__title" type="text" name="title" value="{{ task.title }}" placeholder="title" />
+		</dd>
+
+		<dt>description</dt>
+		<dd>
+			<textarea class="task__secription" name="description" placeholder="description">{{ task.description }}</textarea>
+		</dd>
+	</dl>
+	<div class="task__action">
+		<input class="task__action_create" type="submit" value="{{ form.submit }}">
+	</div>
+</form>
+{% endblock %}

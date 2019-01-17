@@ -1,0 +1,82 @@
+{% extends './extends/template.html' %}
+
+{% block title %}Users{% endblock %}
+
+{% block content %}
+{% if search && search.value && !users.length %}
+No users found
+{% elif !users.length %}
+No users
+{% else %}
+<table class="users">
+	<caption>Users</caption>
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>id</th>
+			<th>role</th>
+			<th>fullname</th>
+			<th>login</th>
+			<th>enable</th>
+			<th>avatar</th>
+			<th>registeredAt</th>
+			<th>actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for user in users %}
+		<tr class="user__row">
+			<td>
+				<span class="user__index">{{ loop.index + skiped }}</span>
+			</td>
+			<td>
+				<a href="/users/{{ user.id }}">
+					<span class="user__id">{{ user.id }}</span>
+				</a>
+			</td>
+			<td>
+				<span class="user__role">
+					{% if user.role %}
+					<img src="/images/icon-admin-24.jpg" alt="admin" />
+					{% else %}
+					<img src="/images/icon-admin-2.jpg" alt="user" />
+					{% endif %}
+				</span>
+			</td>
+			<td>
+				<span class="user__fullname">{{ user.fullname }}</span>
+			</td>
+			<td>
+				<span class="user__login">{{ user.login }}</span>
+			</td>
+			<td>
+				<span class="user__enable">
+					{% if user.enable %}
+					+
+					{% else %}
+					-
+					{% endif %}
+				</span>
+			</td>
+			<td>
+				<span class="user__avatar">
+					{% if user.avatar %}
+					<img src="{{ user.avatar | safe }}" alt="avatar" />
+					{% else %}
+					<img src="/images/noavatar.png" alt="noavatar" />
+					{% endif %}
+				</span>
+			</td>
+			<td>
+				<span class="user__registeredAt">{{ user.registeredAt }}</span>
+			</td>
+			<td>?</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% include './partials/pages.html' ignore missing %}
+
+{% endif %}
+{% endblock %}
